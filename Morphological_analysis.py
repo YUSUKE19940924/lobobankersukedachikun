@@ -3,7 +3,7 @@ class Morphological_analysis:
     @classmethod
     def morphological_analysis(self,message):
         res = message
-        tagger = MeCab.Tagger("-u /usr/local/lib/mecab/dic/userdic/add_dic")
+        tagger = MeCab.Tagger("-u add_dic")
         parsed_txt = tagger.parse(res)
         elements = parsed_txt.split("\n")[:-2]
 
