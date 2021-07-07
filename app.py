@@ -59,7 +59,7 @@ def handle_message(event):
     password='36cefdb1',
     database='heroku_97e37ed6dee1412'
     )   
-    
+
     conn.ping(reconnect=True)
 
     received_message = event.message.text
@@ -67,7 +67,7 @@ def handle_message(event):
     received_message = received_message.split(":")
     print(received_message)
 
-    cur = conn.cursor()
+    cur = conn.cursor(buffered=True)
 
     
     try:
