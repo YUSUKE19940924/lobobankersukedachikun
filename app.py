@@ -43,7 +43,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    """
+    
     conn = mysql.connector.connect(
     host='localhost',
     port='3306',
@@ -59,7 +59,7 @@ def handle_message(event):
     password='36cefdb1',
     database='heroku_97e37ed6dee1412'
     )   
-
+    """
     conn.ping(reconnect=True)
 
     received_message = event.message.text
