@@ -1,6 +1,5 @@
 import os,mysql.connector
 
-from Mysql_connector import Mysql_connector
 from First_Choice import First_Choice
 from Morphological_analysis import Morphological_analysis
 from First_time_use import First_time_use
@@ -161,14 +160,11 @@ def handle_message(event):
             line_bot_api.reply_message(
             event.reply_token,
             [TextSendMessage(text="エラーです。\n恐れ入りますが、入力頂いたメッセージ欄を確認してください。")])
-            
-    Mysql_connector.mysql_connetor_close()
 
 
-    """
     cur.close()
     conn.close()
-    """
+
 
 
 
@@ -241,7 +237,6 @@ def handle_message(event):
         else:
             if ("創業計画書サポート" in postback_datum[0])  == True:
                 reply_message_postback = (Founding_plan.founding_plan_handle(postback_datum))
-                print("")
             
             elif ("ICT提案システム" in postback_datum[0])  == True:
                 reply_message_postback = (Ict_propose.ict_propose_handle(postback_datum))
