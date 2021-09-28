@@ -100,8 +100,8 @@ class Instruction_manual:
                 ]
             )
         ))
-        cur.close()
-        conn.close()
+    cur.close()
+    conn.close()
 
     try:
         return reply_message
@@ -112,8 +112,6 @@ class Instruction_manual:
   @classmethod
   def instruction_manual_postback(self,postback_data):
     reply_message = []
-    user_id = postback_data[1]
-    postback_datum = postback_data[0].split("_")
     
     config_local = {'host':'localhost',
     'port':'3306',
@@ -133,6 +131,7 @@ class Instruction_manual:
     'password':'9fb4f091',
     'database':'heroku_905ff311118e2b7'}
 
+
     try:
         #conn = mysql.connector.connect(**config_local)
         conn = mysql.connector.connnect(**config_cleardb1)
@@ -142,7 +141,7 @@ class Instruction_manual:
     except:
         reply_message.append(TextSendMessage(text="データサーバーにアクセスできません。\n恐れ入りますが、もう一度メッセージの送信をお願いします。"))
 
-
+    postback_datum = postback_data[0].split("_")
 
     if postback_datum[0] == "取扱説明書":
         if postback_datum[1] == "助太刀くん":
