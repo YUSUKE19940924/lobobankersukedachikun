@@ -5,10 +5,10 @@ from First_Choice import First_Choice
 from Morphological_analysis import Morphological_analysis
 from First_time_use import First_time_use
 from Credit_management import Credit_management
-#from Openingcost_management import Openingcost_management
-#from Entrepreneurship_flowchart import Entrepreneurship_flowchart
-#from Ict_propose import Ict_propose
-#from Founding_plan import Founding_plan
+from Openingcost_management import Openingcost_management
+from Entrepreneurship_flowchart import Entrepreneurship_flowchart
+from Ict_propose import Ict_propose
+from Founding_plan import Founding_plan
 from Instruction_manual import Instruction_manual
 
 from flask import Flask, request, abort
@@ -72,9 +72,15 @@ def handle_message(event):
     'password':'c14c0399',
     'database':'heroku_542c06e97c0eef1'}
 
+    config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
+    'port':'3306',
+    'user':'b4ef67a1821202',
+    'password':'9fb4f091',
+    'database':'heroku_905ff311118e2b7'}
+
     try:
-        conn = mysql.connector.connect(**config_local)
-        #conn = mysql.connector.connect(**config_cleardb)
+        #conn = mysql.connector.connect(**config_local)
+        conn = mysql.connector.connect(**config_cleardb1)
         conn.ping(reconnect=True)
         cur = conn.cursor(buffered=True)
 
@@ -91,30 +97,30 @@ def handle_message(event):
     receive_message.append(user_id)
     receive_message.append(user_name)
     
-    #cur.execute("select user_id from ユーザーID管理簿 where user_id = %s",(user_id,))
-    #res = cur.fetchone()
-    #if res == None:
-        #reply_message = (First_time_use.first_time_use_handle(receive_message))
+    cur.execute("select user_id from ユーザーID管理簿 where user_id = %s",(user_id,))
+    res = cur.fetchone()
+    if res == None:
+        reply_message = (First_time_use.first_time_use_handle(receive_message))
     
 
     if ("債権管理" in receive_message[0] or "借入"in receive_message[0]) == True:
         reply_message = (Credit_management.credit_management_handle(receive_message))
 
-    #elif ("開業費" in receive_message[0]) == True: 
-        #reply_message = (Openingcost_management.openingcost_management_handle(receive_message))
+    elif ("開業費" in receive_message[0]) == True: 
+        reply_message = (Openingcost_management.openingcost_management_handle(receive_message))
     
 
-    #elif ("起業フローチャート" in receive_message[0]) == True:
-        #reply_message = (Entrepreneurship_flowchart.entrepreneurship_flowchart_handle(receive_message))
+    elif ("起業フローチャート" in receive_message[0]) == True:
+        reply_message = (Entrepreneurship_flowchart.entrepreneurship_flowchart_handle(receive_message))
     
-    #elif ("ICT提案" in receive_message[0]) == True:
-        #reply_message = (Ict_propose.ict_propose_handle(receive_message))
+    elif ("ICT提案" in receive_message[0]) == True:
+        reply_message = (Ict_propose.ict_propose_handle(receive_message))
 
     elif ("取扱説明書" in receive_message[0]) == True:
         reply_message = (Instruction_manual.instruction_manual_handle(receive_message))
 
-    #elif ("創業計画書" in receive_message[0]) == True:
-        #reply_message = (Founding_plan.founding_plan_handle(receive_message))
+    elif ("創業計画書" in receive_message[0]) == True:
+        reply_message = (Founding_plan.founding_plan_handle(receive_message))
 
 
     else:
@@ -182,9 +188,15 @@ def handle_message(event):
         'password':'c14c0399',
         'database':'heroku_542c06e97c0eef1'}
 
+        config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
+        'port':'3306',
+        'user':'b4ef67a1821202',
+        'password':'9fb4f091',
+        'database':'heroku_905ff311118e2b7'}
+
         try:
-            conn = mysql.connector.connect(**config_local)
-            #conn = mysql.connector.connect(**config_cleardb)
+            #conn = mysql.connector.connect(**config_local)
+            conn = mysql.connector.connect(**config_cleardb1)
             conn.ping(reconnect=True)
             cur = conn.cursor(buffered=True)
 
@@ -207,17 +219,17 @@ def handle_message(event):
             if ("債権管理システム" in postback_data[0]) == True:
                 reply_message_postback = (Credit_management.credit_management_postback(postback_data))
 
-            #elif ("開業費管理システム" in postback_data[0]) == True:
-                #reply_message_postback = (Openingcost_management.openingcost_management_postback(postback_data))
+            elif ("開業費管理システム" in postback_data[0]) == True:
+                reply_message_postback = (Openingcost_management.openingcost_management_postback(postback_data))
                 
-            #elif ("起業フローチャート" in postback_data[0]) == True:
-                #reply_message_postback = (Entrepreneurship_flowchart.entrepreneurship_flowchart_postback(postback_data))
+            elif ("起業フローチャート" in postback_data[0]) == True:
+                reply_message_postback = (Entrepreneurship_flowchart.entrepreneurship_flowchart_postback(postback_data))
 
-            #elif ("ICT提案システム" in postback_data[0])  == True:
-                #reply_message_postback = (Ict_propose.ict_propose_postback(postback_data))
+            elif ("ICT提案システム" in postback_data[0])  == True:
+                reply_message_postback = (Ict_propose.ict_propose_postback(postback_data))
 
-            #elif ("創業計画書サポート" in postback_data[0])  == True:
-                #reply_message_postback = (Founding_plan.founding_plan_postback(postback_data))
+            elif ("創業計画書サポート" in postback_data[0])  == True:
+                reply_message_postback = (Founding_plan.founding_plan_postback(postback_data))
 
             elif ("取扱説明書" in postback_data[0])  == True:
                 reply_message_postback = (Instruction_manual.instruction_manual_postback(postback_data))
@@ -228,11 +240,11 @@ def handle_message(event):
        
         else:
             if ("創業計画書サポート" in postback_datum[0])  == True:
-                #reply_message_postback = (Founding_plan.founding_plan_handle(postback_datum))
+                reply_message_postback = (Founding_plan.founding_plan_handle(postback_datum))
                 print("")
             
-            #elif ("ICT提案システム" in postback_datum[0])  == True:
-                #reply_message_postback = (Ict_propose.ict_propose_handle(postback_datum))
+            elif ("ICT提案システム" in postback_datum[0])  == True:
+                reply_message_postback = (Ict_propose.ict_propose_handle(postback_datum))
 
 
             else:

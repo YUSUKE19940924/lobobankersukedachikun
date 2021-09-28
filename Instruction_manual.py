@@ -64,8 +64,15 @@ class Instruction_manual:
     'password':'c14c0399',
     'database':'heroku_542c06e97c0eef1'}
 
+    config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
+    'port':'3306',
+    'user':'b4ef67a1821202',
+    'password':'9fb4f091',
+    'database':'heroku_905ff311118e2b7'}
+
     try:
-        conn = mysql.connector.connect(**config_local)
+        #conn = mysql.connector.connect(**config_local)
+        conn = mysql.connector.connect(**config_cleardb1)
         conn.ping(reconnect=True)
         cur = conn.cursor(buffered=True)
 
@@ -120,8 +127,15 @@ class Instruction_manual:
     'password':'c14c0399',
     'database':'heroku_542c06e97c0eef1'}
 
+    config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
+    'port':'3306',
+    'user':'b4ef67a1821202',
+    'password':'9fb4f091',
+    'database':'heroku_905ff311118e2b7'}
+
     try:
-        conn = mysql.connector.connect(**config_local)
+        #conn = mysql.connector.connect(**config_local)
+        conn = mysql.connector.connnect(**config_cleardb1)
         conn.ping(reconnect=True)
         cur = conn.cursor(buffered=True)
 
