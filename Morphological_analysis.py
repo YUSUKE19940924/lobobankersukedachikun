@@ -17,9 +17,9 @@ class Morphological_analysis:
        # 単語の取り出し
         for result in results:
             if result["品詞"] == "名詞" and result["品詞1"] == "固有名詞" and result["品詞2"] == "人名" and result["品詞3"] == "一般": 
-                def_search_word = result["表層形"]
+                search_word = result["表層形"]
 
         try:
-            return def_search_word
+            return search_word
         except UnboundLocalError:
             return "私にはわかりません。別の質問なら何とか答えられるかもしれません。"
