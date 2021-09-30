@@ -201,6 +201,10 @@ class Ict_propose:
                   ]
               )
           ))
+
+        elif postback_datum[1] == "いいえ":
+            reply_message.append(TextSendMessage(text="わかりました。何かあれば声を掛けてください。"))
+
         elif len(postback_datum) == 3:
 
           search_word = postback_datum[2]
@@ -391,7 +395,7 @@ class Ict_propose:
                         ),
                         PostbackAction(
                             label="いいえ",
-                            data=(f"ありがとう")
+                            data=(f"ICT提案システム__いいえ")
                         )
                     ]
                 )

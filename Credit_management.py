@@ -96,7 +96,7 @@ class Credit_management:
             id = split_message[1]
             cur.execute(f"select * from 債権管理{user_id} where id = %s",(id,))
             row= cur.fetchone()
-            borrowing_information = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}\n借入利率:{row[12]}\n----------------------------------------\n")
+            borrowing_information = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}日\n借入利率:{row[12]}\n----------------------------------------\n")
             reply_message.append(TextSendMessage(text=f"{borrowing_information}\n借入ID:{id}の検索結果を表示してます。"))
         except:
             reply_message.append(Credit_management.borrowing_search_error_message())
@@ -114,11 +114,11 @@ class Credit_management:
 
             if len(rows) == 1:
                 row = rows[0]
-                borrowing_details = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}\n借入利率:{row[12]}")
+                borrowing_details = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}日\n借入利率:{row[12]}")
                 reply_message.append(TextSendMessage(text=borrowing_details))
             else:
                 for row in rows:
-                    borrowing_details = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}\n借入利率:{row[12]}\n----------------------------------------\n")
+                    borrowing_details = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}日\n借入利率:{row[12]}\n----------------------------------------\n")
                     borrowing_detail += borrowing_details
                 reply_message.append(TextSendMessage(text=borrowing_detail))
 
@@ -129,13 +129,13 @@ class Credit_management:
             f_i = split_message[1]
             b = 0
             cur.execute(f"select b_a from 債権管理{user_id} where f_i = %s",(f_i,))
+        except:
+            reply_message.append(Credit_management.borrowing_search_error_message())
             rows= cur.fetchall()
             for row in rows:
                 b += row[0]
                 d = "{}の当初の借入金総額:{:,}円".format(f_i,b)
             reply_message.append(TextSendMessage(text=d))
-        except:
-            reply_message.append(Credit_management.borrowing_search_error_message())
 
      elif ("借入金融機関(現在借入金総額)" in  receive_message[0]) == True:
         try:
@@ -143,13 +143,15 @@ class Credit_management:
             f_i = split_message[1]
             b = 0
             cur.execute(f"select r_a from 債権管理{user_id} where f_i = %s",(f_i,))
+        except:
+            reply_message.append(Credit_management.borrowing_search_error_message())
+
             rows= cur.fetchall()
             for row in rows:
                 b += row[0]
                 d = "{}の現在の借入金総額:{:,}円".format(f_i,b)
             reply_message.append(TextSendMessage(text=d))
-        except:
-            reply_message.append(Credit_management.borrowing_search_error_message())
+
 
      elif ("借入金融機関(毎月の返済額)" in  receive_message[0]) == True:
         try:
@@ -157,13 +159,14 @@ class Credit_management:
             f_i = split_message[1]
             b = 0
             cur.execute(f"select m_r_a from 債権管理{user_id} where f_i = %s",(f_i,))
+        except:
+            reply_message.append(Credit_management.borrowing_search_error_message())
             rows= cur.fetchall()
             for row in rows:
                 b += row[0]
                 d = "{}の毎月の返済額:{:,}円".format(f_i,b)
             reply_message.append(TextSendMessage(text=d))
-        except:
-            reply_message.append(Credit_management.borrowing_search_error_message())
+
     
      elif ("借入ID(当初の支払利子計算)"in  receive_message[0]) == True:
         try:
@@ -213,7 +216,7 @@ class Credit_management:
 
                 cur.execute(f"SELECT * FROM 債権管理{user_id} ORDER BY id DESC")
                 row= cur.fetchone()
-                a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+                a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
                 reply_message.append(TextSendMessage(text=(f"{a}登録が完了致しました。")))
             except:
                 reply_message.append(TextSendMessage(text="入力頂いたメッセージでは検索できません。\n「~~」「:」文字が半角になっているか、余分な余白が入っているか、入力した内容が登録されているか等の確認をお願いします。"))
@@ -230,7 +233,7 @@ class Credit_management:
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
             row= cur.fetchone()
-            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
             reply_message.append(TextSendMessage(text=(f"{a}一括変更が完了致しました。")))
     
@@ -244,7 +247,7 @@ class Credit_management:
                 conn.commit()
                 cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
                 row= cur.fetchone()
-                a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+                a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
                 reply_message.append(TextSendMessage(text=(f"{a}借入金額の変更を完了致しました。")))
 
         
@@ -259,7 +262,7 @@ class Credit_management:
 
                 cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
                 row= cur.fetchone()
-                a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+                a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
 
                 reply_message.append(TextSendMessage(text=(f"{a}借入残額の変更を完了致しました。")))
@@ -275,7 +278,7 @@ class Credit_management:
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
             row= cur.fetchone()
-            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
             reply_message.append(TextSendMessage(text=(f"{a}毎月の返済額の変更を完了致しました。")))
 
@@ -290,7 +293,7 @@ class Credit_management:
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
             row= cur.fetchone()
-            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
             reply_message.append(TextSendMessage(text=(f"{a}借入日の変更を完了致しました。")))
 
@@ -305,7 +308,7 @@ class Credit_management:
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
             row= cur.fetchone()
-            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
             reply_message .append(TextSendMessage(text=(f"{a}借入期間の変更を完了致しました。")))
 
@@ -320,7 +323,7 @@ class Credit_management:
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
             row= cur.fetchone()
-            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
             reply_message.append(TextSendMessage(text=(f"{a}残存期間の変更を完了致しました。")))
 
@@ -334,7 +337,7 @@ class Credit_management:
             conn.commit()
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
             row= cur.fetchone()
-            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
             reply_message.append(TextSendMessage(text= (f"{a}金融機関名の変更を完了致しました。")))
 
@@ -344,12 +347,12 @@ class Credit_management:
             reply_message.append(bollowing_conditions)
         else:
             time_stamp = time.strftime("%Y-%m-%d %H:%M:%S")
-            cur.execute(f'UPDATE 債権管理{user_id} SET datetime=%s,r_d WHERE id=%s', (time_stamp,bollowing_conditions[1],bollowing_conditions[0]))
+            cur.execute(f'UPDATE 債権管理{user_id} SET datetime=%s,r_d=%s WHERE id=%s', (time_stamp,bollowing_conditions[1],bollowing_conditions[0]))
             conn.commit()
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
             row= cur.fetchone()
-            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
             reply_message.append(TextSendMessage(text=(f"{a}返済日の変更を完了致しました。")))
 
@@ -365,7 +368,7 @@ class Credit_management:
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
             row= cur.fetchone()
-            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+            a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}ヶ月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
 
             reply_message.append(TextSendMessage(text=(f"{a}借入利率の変更を完了致しました。")))
 
@@ -378,7 +381,7 @@ class Credit_management:
             cur.execute(f"SELECT * FROM 債権管理{user_id} ORDER BY id ")
             rows= cur.fetchall()
             for row in rows: 
-                a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+                a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
                 message_0 += a
             reply_message.append(TextSendMessage(text=(f"{message_0}削除が完了致しました。")))
         except:
@@ -586,7 +589,7 @@ class Credit_management:
                 cur.execute(f"SELECT * FROM 債権管理{user_id} ORDER BY id ")
                 rows= cur.fetchall()
                 for row in rows: 
-                    a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}\n借入利率:{row[12]}%\n----------------------------------------\n")
+                    a = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}日\n借入利率:{row[12]}%\n----------------------------------------\n")
                     message0 += a
 
                 reply_message.append(TextSendMessage(text=f"{message0}\nこちらが現在の借入一覧となります。"))

@@ -402,6 +402,11 @@ class Founding_plan:
                 reply_message.append(def_reply_message)
         
           elif postback_datum[2] == "悪い具体例各項目解説":
+            image_url = "https://egaoknk.com/wp-content/uploads/2021/08/bad_founding_plan.png"
+            reply_message.append(ImageSendMessage(
+            original_content_url= image_url,
+            preview_image_url= image_url
+            ))
             cur.execute("select content from 創業計画書サポート where title = %s",(postback_datum[2],))
             res = cur.fetchone()
             reply_message.append(TextSendMessage(text=res[0])) 
