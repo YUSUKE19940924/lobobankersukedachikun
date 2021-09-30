@@ -116,7 +116,10 @@ class Ict_propose:
     postback_datum = postback_data[0].split("_")
 
     if postback_datum[0] == "ICT提案システム":
-      if postback_datum[1] == "意味":
+      if postback_datum[1] == "いいえ":
+        reply_message.append(TextSendMessage(text="わかりました。何かあれば声を掛けてください。"))
+        
+      elif postback_datum[1] == "意味":
         cur.execute("select content from 経営用語辞典 where id = %s",(9,))
         res = cur.fetchone()
         reply_message.append(TextSendMessage(text=res[0]))
@@ -124,10 +127,7 @@ class Ict_propose:
 
       
       elif postback_datum[1] == "受ける":
-        if len(postback_datum) == 2:
-          if postback_datum[1] == "いいえ":
-            reply_message.append(TextSendMessage(text="わかりました。何かあれば声を掛けてください。"))
-            
+        if len(postback_datum) == 2:            
           cur.execute("select content from ICT提案システム where id = %s",(1,))
           res = cur.fetchone()
           reply_message.append(TextSendMessage(text=res[0]))
