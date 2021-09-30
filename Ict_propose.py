@@ -395,7 +395,7 @@ class Ict_propose:
                         ),
                         PostbackAction(
                             label="いいえ",
-                            data=(f"ICT提案システム__いいえ")
+                            data=(f"ICT提案システム_いいえ")
                         )
                     ]
                 )
@@ -612,7 +612,7 @@ class Ict_propose:
                         ),
                         PostbackAction(
                             label="いいえ",
-                            data=(f"ありがとう")
+                            data=(f"ICT提案システム起動_いいえ")
                         )
                     ]
                 )
