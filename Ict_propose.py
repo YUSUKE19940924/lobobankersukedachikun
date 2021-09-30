@@ -442,11 +442,11 @@ class Ict_propose:
           ict_detail = ict_system_detail + ict_device_detail
 
           if len(ict_detail) <= 5000:
-             reply_message.append(TextSendMessage(text=f"{ict_detail}こちらがあなたの条件にあったICTの詳細です。"))
+             reply_message.append(TextSendMessage(text=f"{ict_detail}こちらがICTの詳細です。参考にして頂ければ幸いです。"))
         
           elif len(ict_detail) >= 5001:
-              reply_message.append(TextSendMessage(text=f"{ict_system_detail}こちらがあなたの条件にあったICTサービスです。"))
-              reply_message.append(TextSendMessage(text=f"{ict_device_detail}こちらがあなたの条件にあったICT機器です。"))
+              reply_message.append(TextSendMessage(text=f"{ict_system_detail}こちらがICTサービスの詳細です。参考にして頂ければ幸いです。"))
+              reply_message.append(TextSendMessage(text=f"{ict_device_detail}こちらがICT機器の詳細です。参考にして頂ければ幸いです。"))
               
 
       

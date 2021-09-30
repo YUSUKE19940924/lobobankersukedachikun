@@ -267,7 +267,7 @@ class Openingcost_management:
                             data="開業費管理システム_計算_総額計算"
                         ),
                         PostbackAction(
-                            label="支払日で借入内容を計算",
+                            label="支払日で開業費内容を計算",
                             data="開業費管理システム_計算_支払日計算"
                         )
                     ]
@@ -320,10 +320,10 @@ class Openingcost_management:
                 cur.execute(f"SELECT * FROM 開業費管理{user_id} ORDER BY id ")
                 rows= cur.fetchall()
                 for row in rows: 
-                    a = (f"開業費ID:{row[0]}\n登録日時:{row[1]}\n支払日:{row[2]}\n費用項目:{row[3]}\n支払金額:{row[4]:,}円\n----------------------------------------\nこちらが現在登録されている開業費の一覧です。")
+                    a = (f"開業費ID:{row[0]}\n登録日時:{row[1]}\n支払日:{row[2]}\n費用項目:{row[3]}\n支払金額:{row[4]:,}円\n----------------------------------------\n")
                     message0 += a
 
-                reply_message.append(TextSendMessage(text=message0))
+                reply_message.append(TextSendMessage(text=f"{message0}こちらが現在登録されている開業費の一覧です。"))
 
             elif postback_datum[2] == "総額計算":
                 sum = 0

@@ -107,8 +107,11 @@ class Credit_management:
             split_message = receive_message[0].split(":")
             f_i = split_message[1]
             cur.execute(f"select * from 債権管理{user_id} where f_i = %s",(f_i,))
+        except:
+            reply_message.append(Credit_management.borrowing_search_error_message())
             rows= cur.fetchall()
             borrowing_detail = ""
+
             if len(rows) == 1:
                 row = rows[0]
                 borrowing_details = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}\n借入利率:{row[12]}")
@@ -118,8 +121,7 @@ class Credit_management:
                     borrowing_details = (f"借入ID:{row[0]}\n登録日時:{row[1]}\n金融機関名:{row[2]}\n借入金額:{math.floor(row[3]/10000)}万円\n借入残額:{math.floor(row[4]/10000)}万円\n毎月の返済額:{math.floor(row[5])}円\n借入日:{row[6]}\n借入期間:{row[7]}年{row[8]}ヶ月\n残存期間:{row[9]}年{row[10]}月\n返済日:{row[11]}\n借入利率:{row[12]}\n----------------------------------------\n")
                     borrowing_detail += borrowing_details
                 reply_message.append(TextSendMessage(text=borrowing_detail))
-        except:
-            reply_message.append(Credit_management.borrowing_search_error_message())
+
 
      elif ("借入金融機関(当初借入金総額)" in  receive_message[0]) == True:
         try:
@@ -298,7 +300,7 @@ class Credit_management:
             reply_message.append(bollowing_conditions)
         else:
             time_stamp = time.strftime("%Y-%m-%d %H:%M:%S")
-            cur.execute(f'UPDATE 債権管理{user_id} SET datetime=%s,b_y=%s,b_m=%s WHERE id=%s', (time_stamp,bollowing_conditions[1],bollowing_conditions[0]))
+            cur.execute(f'UPDATE 債権管理{user_id} SET datetime=%s,b_y=%s,b_m=%s WHERE id=%s', (time_stamp,bollowing_conditions[1],bollowing_conditions[2],bollowing_conditions[0]))
             conn.commit()
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))
@@ -313,7 +315,7 @@ class Credit_management:
             reply_message.append(bollowing_conditions)
         else:
             time_stamp = time.strftime("%Y-%m-%d %H:%M:%S")
-            cur.execute(f'UPDATE 債権管理{user_id} SET datetime=%s,r_y=%s,r_m=%s WHERE id=%s', (time_stamp,bollowing_conditions[1],bollowing_conditions[0]))
+            cur.execute(f'UPDATE 債権管理{user_id} SET datetime=%s,r_y=%s,r_m=%s WHERE id=%s', (time_stamp,bollowing_conditions[1],bollowing_conditions[2],bollowing_conditions[0]))
             conn.commit()
 
             cur.execute(f"SELECT * FROM 債権管理{user_id} WHERE id=%s",(bollowing_conditions[0],))

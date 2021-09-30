@@ -131,6 +131,7 @@ class Instruction_manual:
     'password':'9fb4f091',
     'database':'heroku_905ff311118e2b7'}
 
+
     try:
         #conn = mysql.connector.connect(**config_local)
         conn = mysql.connector.connect(**config_cleardb1)

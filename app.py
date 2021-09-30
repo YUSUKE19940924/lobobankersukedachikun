@@ -106,21 +106,21 @@ def handle_message(event):
     if ("債権管理" in receive_message[0] or "借入"in receive_message[0]) == True:
         reply_message = (Credit_management.credit_management_handle(receive_message))
 
-    elif ("開業費" in receive_message[0]) == True: 
-        reply_message = (Openingcost_management.openingcost_management_handle(receive_message))
+    #elif ("開業費" in receive_message[0]) == True: 
+        #reply_message = (Openingcost_management.openingcost_management_handle(receive_message))
     
 
     elif ("起業フローチャート" in receive_message[0]) == True:
         reply_message = (Entrepreneurship_flowchart.entrepreneurship_flowchart_handle(receive_message))
     
-    elif ("ICT提案" in receive_message[0]) == True:
-        reply_message = (Ict_propose.ict_propose_handle(receive_message))
+    #elif ("ICT提案" in receive_message[0]) == True:
+        #reply_message = (Ict_propose.ict_propose_handle(receive_message))
 
-    elif ("創業計画書" in receive_message[0]) == True:
-        reply_message = (Founding_plan.founding_plan_handle(receive_message))
+    #elif ("創業計画書" in receive_message[0]) == True:
+        #reply_message = (Founding_plan.founding_plan_handle(receive_message))
 
-    elif ("取扱説明書" in receive_message[0]) == True:
-        reply_message = (Instruction_manual.instruction_manual_handle(receive_message))
+    #elif ("取扱説明書" in receive_message[0]) == True:
+        #reply_message = (Instruction_manual.instruction_manual_handle(receive_message))
 
 
     else:
@@ -217,20 +217,20 @@ def handle_message(event):
             if ("債権管理システム" in postback_data[0]) == True:
                 reply_message_postback = (Credit_management.credit_management_postback(postback_data))
 
-            elif ("開業費管理システム" in postback_data[0]) == True:
-                reply_message_postback = (Openingcost_management.openingcost_management_postback(postback_data))
+            #elif ("開業費管理システム" in postback_data[0]) == True:
+                #reply_message_postback = (Openingcost_management.openingcost_management_postback(postback_data))
                 
             elif ("起業フローチャート" in postback_data[0]) == True:
                 reply_message_postback = (Entrepreneurship_flowchart.entrepreneurship_flowchart_postback(postback_data))
 
-            elif ("ICT提案システム" in postback_data[0])  == True:
-                reply_message_postback = (Ict_propose.ict_propose_postback(postback_data))
+            #elif ("ICT提案システム" in postback_data[0])  == True:
+                #reply_message_postback = (Ict_propose.ict_propose_postback(postback_data))
 
-            elif ("創業計画書サポート" in postback_data[0])  == True:
-                reply_message_postback = (Founding_plan.founding_plan_postback(postback_data))
+            #elif ("創業計画書サポート" in postback_data[0])  == True:
+                #reply_message_postback = (Founding_plan.founding_plan_postback(postback_data))
 
-            elif ("取扱説明書" in postback_data[0])  == True:
-                reply_message_postback = (Instruction_manual.instruction_manual_postback(postback_data))
+            #elif ("取扱説明書" in postback_data[0])  == True:
+                #reply_message_postback = (Instruction_manual.instruction_manual_postback(postback_data))
 
             else:
                 reply_message_postback.append(TextSendMessage(text=postback_data))
