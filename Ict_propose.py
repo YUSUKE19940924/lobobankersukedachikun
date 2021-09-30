@@ -125,6 +125,9 @@ class Ict_propose:
       
       elif postback_datum[1] == "受ける":
         if len(postback_datum) == 2:
+          if postback_datum[1] == "いいえ":
+            reply_message.append(TextSendMessage(text="わかりました。何かあれば声を掛けてください。"))
+            
           cur.execute("select content from ICT提案システム where id = %s",(1,))
           res = cur.fetchone()
           reply_message.append(TextSendMessage(text=res[0]))
@@ -202,8 +205,7 @@ class Ict_propose:
               )
           ))
 
-        elif postback_datum[1] == "いいえ":
-            reply_message.append(TextSendMessage(text="わかりました。何かあれば声を掛けてください。"))
+
 
         elif len(postback_datum) == 3:
 
