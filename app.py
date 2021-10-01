@@ -96,12 +96,12 @@ def handle_message(event):
     receive_message.append(user_id)
     receive_message.append(user_name)
     
-    """
+    
     cur.execute("select user_id from ユーザーID管理簿 where user_id = %s",(user_id,))
     res = cur.fetchone()
     if res == None:
         reply_message = (First_time_use.first_time_use_handle(receive_message))
-    """
+    
 
     if ("債権管理" in receive_message[0] or "借入"in receive_message[0]) == True:
         reply_message = (Credit_management.credit_management_handle(receive_message))

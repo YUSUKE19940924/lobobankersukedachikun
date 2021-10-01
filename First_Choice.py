@@ -1,16 +1,7 @@
 import random,glob
 
-from flask import Flask, request, abort
-
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,ImageSendMessage,TemplateSendMessage,ConfirmTemplate, PostbackAction,MessageAction,ButtonsTemplate
+TemplateSendMessage,PostbackAction,ButtonsTemplate
 )
 class First_Choice:
   @classmethod

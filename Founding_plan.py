@@ -1,4 +1,4 @@
-import mysql.connector,time,datetime
+import mysql.connector
 
 from linebot.models import(
   TextSendMessage,TemplateSendMessage,PostbackAction,ButtonsTemplate,ImageSendMessage

@@ -1,5 +1,4 @@
 import mysql.connector
-from mysql.connector.cursor import RE_SQL_INSERT_STMT, RE_SQL_INSERT_VALUES
 
 from First_Choice import First_Choice
 
