@@ -40,7 +40,7 @@ class First_time_use:
         reply_message.append(TextSendMessage(text="データサーバーにアクセスできません。\n恐れ入りますが、もう一度メッセージの送信をお願いします。"))
 
 
-    cur.execute("INSERT INTO ユーザーID管理簿 VALUES (id,%s)",(user_id,))
+    cur.execute("INSERT INTO ユーザーID管理簿 VALUES (id,%s,%s)",(user_id,user_name))
 
     cur.execute(f"CREATE TABLE IF NOT EXISTS 開業費管理{user_id} (\
     `id` int(11) unsigned not null auto_increment primary key,\
@@ -73,12 +73,16 @@ class First_time_use:
     rows = cur.fetchall()
     time_stamp = time.strftime("%Y-%m-%d %H:%M:%S")
     date_stamp = datetime.date.today()
+    id = 1
     for row in rows:
-      cur.execute(f"INSERT INTO 開業費管理{user_id} VALUES (id,%s,%s,%s,%s)",(time_stamp,date_stamp,row[0],0))
-      cur.execute("select content from 起業フローチャート")
-      rows = cur.fetchall()
+        cur.execute(f"INSERT INTO 開業費管理{user_id} VALUES (%s,%s,%s,%s,%s)",(id,time_stamp,date_stamp,row[0],0))
+        id += 1
+    id = 1
+    cur.execute("select title from 起業フローチャート")
+    rows = cur.fetchall()
     for row in rows:
-      cur.execute(f"INSERT INTO 起業フローチャート{user_id} VALUES (id,%s,%s)",(row[0],"未完了"))
+        cur.execute(f"INSERT INTO 起業フローチャート{user_id} VALUES (%s,%s,%s)",(id,row[0],"未完了"))
+        id += 1
     conn.commit()  
     reply_message.append(TextSendMessage(text=f"{user_name}様初めてのご利用ありがとうございます。"))
 

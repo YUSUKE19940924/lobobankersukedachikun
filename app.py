@@ -103,7 +103,7 @@ def handle_message(event):
         reply_message = (First_time_use.first_time_use_handle(receive_message))
     
 
-    if ("債権管理" in receive_message[0] or "借入"in receive_message[0]) == True:
+    elif ("債権管理" in receive_message[0] or "借入"in receive_message[0]) == True:
         reply_message = (Credit_management.credit_management_handle(receive_message))
 
     elif ("開業費" in receive_message[0]) == True: 
