@@ -10,24 +10,11 @@ class Entrepreneurship_flowchart:
   def entrepreneurship_flowchart_handle(self,receive_message):
     reply_message = []
      
-    config_local = {'host':'localhost',
-    'port':'3306',
-    'user':'root',
-    'password':'P@ssw0rd',
-    'database':'chatbot'}
-
-    config_cleardb = {'host':'us-cdbr-east-04.cleardb.com',
-    'port':'3306',
-    'user':'b532f809ae5b5c',
-    'password':'c14c0399',
-    'database':'heroku_542c06e97c0eef1'}
-
-    config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
-    'port':'3306',
-    'user':'b4ef67a1821202',
-    'password':'9fb4f091',
-    'database':'heroku_905ff311118e2b7'}
-
+    config_cleardb1 = {'host':'ホスト',
+    'port':'ポート',
+    'user':'ユーザ',
+    'password':'パスワード',
+    'database':'データベース'}
     try:
         #conn = mysql.connector.connect(**config_local)
         conn = mysql.connector.connect(**config_cleardb1)
@@ -36,10 +23,6 @@ class Entrepreneurship_flowchart:
 
     except:
         reply_message.append(TextSendMessage(text="データサーバーにアクセスできません。\n恐れ入りますが、もう一度メッセージの送信をお願いします。"))
-
-
-     
-#起業フローチャート$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
     if receive_message[0] == "起業フローチャートシステム起動":
         reply_message.append(TemplateSendMessage(
@@ -76,23 +59,11 @@ class Entrepreneurship_flowchart:
     user_id = postback_data[1]
     postback_datum = postback_data[0].split("_")
         
-    config_local = {'host':'localhost',
-    'port':'3306',
-    'user':'root',
-    'password':'P@ssw0rd',
-    'database':'chatbot'}
-
-    config_cleardb = {'host':'us-cdbr-east-04.cleardb.com',
-    'port':'3306',
-    'user':'b532f809ae5b5c',
-    'password':'c14c0399',
-    'database':'heroku_542c06e97c0eef1'}
-
-    config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
-    'port':'3306',
-    'user':'b4ef67a1821202',
-    'password':'9fb4f091',
-    'database':'heroku_905ff311118e2b7'}
+    config_cleardb1 = {'host':'ホスト',
+    'port':'ポート',
+    'user':'ユーザ',
+    'password':'パスワード',
+    'database':'データベース'}
 
     try:
         #conn = mysql.connector.connect(**config_local)

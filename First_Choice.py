@@ -1,5 +1,3 @@
-import random,glob
-
 from linebot.models import (
 TemplateSendMessage,PostbackAction,ButtonsTemplate
 )

@@ -12,23 +12,11 @@ class First_time_use:
     user_id = receive_message[1]
     user_name = receive_message[2]
     
-    config_local = {'host':'localhost',
-    'port':'3306',
-    'user':'root',
-    'password':'P@ssw0rd',
-    'database':'chatbot'}
-
-    config_cleardb = {'host':'us-cdbr-east-04.cleardb.com',
-    'port':'3306',
-    'user':'b532f809ae5b5c',
-    'password':'c14c0399',
-    'database':'heroku_542c06e97c0eef1'}
-
-    config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
-    'port':'3306',
-    'user':'b4ef67a1821202',
-    'password':'9fb4f091',
-    'database':'heroku_905ff311118e2b7'}
+    config_cleardb1 = {'host':'ホスト',
+    'port':'ポート',
+    'user':'ユーザ',
+    'password':'パスワード',
+    'database':'データベース'}
 
     try:
         #conn = mysql.connector.connect(**config_local)

@@ -19,7 +19,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,ImageSendMessage,TemplateSendMessage,ConfirmTemplate, PostbackAction,MessageAction,ButtonsTemplate,PostbackEvent
+    MessageEvent, TextMessage, TextSendMessage,PostbackEvent
 )
 
 from linebot.models import*
@@ -30,8 +30,8 @@ from linebot.models import*
 
 app = Flask(__name__)
 
-line_bot_api = LineBotApi('L9nOYlTdQr2tvB62rOTtakfayJvw99bB9JZh0brzXQvsaZ86pY5Zt4c5VT94x+Tn+1tN86x4hfyCmrm6HYUK0J0a5smndbsnzoOG/Zs/V5EX/N9nQZpWFUuqJsJqFORolekBtR8JaO+l4T2EPP2h+AdB04t89/1O/w1cDnyilFU=')
-handler = WebhookHandler('790c279873d8763924c7673463a30a82')
+line_bot_api = LineBotApi('チャネルアクセストークン')
+handler = WebhookHandler('チャネルシークレット')
 
 
 @app.route("/callback", methods=['POST'])
@@ -59,23 +59,11 @@ def handle_message(event):
     receive_message = []
     reply_message = []
 
-    config_local = {'host':'localhost',
-    'port':'3306',
-    'user':'root',
-    'password':'P@ssw0rd',
-    'database':'chatbot'}
-
-    config_cleardb = {'host':'us-cdbr-east-04.cleardb.com',
-    'port':'3306',
-    'user':'b532f809ae5b5c',
-    'password':'c14c0399',
-    'database':'heroku_542c06e97c0eef1'}
-
-    config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
-    'port':'3306',
-    'user':'b4ef67a1821202',
-    'password':'9fb4f091',
-    'database':'heroku_905ff311118e2b7'}
+    config_cleardb1 = {'host':'ホスト',
+    'port':'ポート',
+    'user':'ユーザ',
+    'password':'パスワード',
+    'database':'データベース'}
 
     try:
         #conn = mysql.connector.connect(**config_local)
@@ -173,23 +161,11 @@ def handle_message(event):
     @handler.add(PostbackEvent)
     def on_postback(event): 
        
-        config_local = {'host':'localhost',
-        'port':'3306',
-        'user':'root',
-        'password':'P@ssw0rd',
-        'database':'chatbot'}
-
-        config_cleardb = {'host':'us-cdbr-east-04.cleardb.com',
-        'port':'3306',
-        'user':'b532f809ae5b5c',
-        'password':'c14c0399',
-        'database':'heroku_542c06e97c0eef1'}
-
-        config_cleardb1 = {'host':'us-cdbr-east-04.cleardb.com',
-        'port':'3306',
-        'user':'b4ef67a1821202',
-        'password':'9fb4f091',
-        'database':'heroku_905ff311118e2b7'}
+        config_cleardb1 = {'host':'ホスト',
+        'port':'ポート',
+        'user':'ユーザ',
+        'password':'パスワード',
+        'database':'データベース'}
 
         try:
             #conn = mysql.connector.connect(**config_local)
